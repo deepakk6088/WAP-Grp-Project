@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import MasonryGrid from "../../Components/MasonryGrid/MasonryGrid";
+import CategoryTabs from "../../Components/CategoryTabs/CategoryTabs";
 import usePinsFeed from "../../hooks/usePinsFeed";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import { categories } from "../../data/categories";
@@ -52,6 +53,11 @@ function Home() {
       </aside>
 
       <section className={styles.content}>
+        <CategoryTabs
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={onCategoryChange}
+        />
         <p className={styles.queryText}>
           {searchTerm
             ? `Results for "${searchTerm}"${activeCategory !== "All" ? ` in ${activeCategory}` : ""}`
@@ -91,3 +97,5 @@ function Home() {
     </main>
   );
 }
+
+export default Home;
