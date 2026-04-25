@@ -1,4 +1,4 @@
-export async function fetchPins(query = "nature", page = 1, perPage = 30) {
+export async function fetchSearchPins({ query = "nature", page = 1, perPage = 30, signal }) {
   const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(
     query
   )}&page=${page}&per_page=${perPage}`;
@@ -7,9 +7,21 @@ export async function fetchPins(query = "nature", page = 1, perPage = 30) {
     headers: {
       Authorization: import.meta.env.VITE_PEXELS_API_KEY,
     },
+    signal,
   });
 
-  const data = await res.json();
+  return await res.json();
+}
 
-  return data.photos || [];  
+export async function fetchCuratedPins({ page = 1, perPage = 30, signal }) {
+  const url = `https://api.pexels.com/v1/curated?page=${page}&per_page=${perPage}`;
+
+  const res = await fetch(url, {
+    headers: {
+      Authorization: import.meta.env.VITE_PEXELS_API_KEY,
+    },
+    signal,
+  });
+
+  return await res.json();
 }
